@@ -1,20 +1,22 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import BoardSquare from './BoardSquare';
 
-class Board extends Component {
-  constructor() {
-    super();
+const Board = () => {
+  const rows = useState(5);
+  const cols = useState(5);
+  const squareSize = useState(25);
+
+  for (let i = 0; i < cols; i + 1) {
+    for (let j = 0; j < rows; j + 1) {
+      let squareKey = `s${j}${i}`;
+    }
   }
 
-  componentDidMount() {
-    const { canvas } = this;
-    const context = canvas.getContext('2d');
-  }
-
-  render() {
-    return (
-      <canvas ref={(c) => { this.canvas = c; }} width={400} height={400} />
-    );
-  }
-}
+  return (
+    <div>
+      <BoardSquare />
+    </div>
+  );
+};
 
 export default Board;

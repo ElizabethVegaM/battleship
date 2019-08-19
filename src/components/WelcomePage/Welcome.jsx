@@ -20,6 +20,7 @@ class Welcome extends Component {
         <h1>BATALLA NAVAL</h1>
         <p>Bienvenido</p>
         <CustomButton onClick={this.newGame} text="INICIAR PARTIDA" />
+        <Board />
       </div>
     );
   }

@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
 
-const customButton = ({ text, onClick, type }) => (
+const CustomButton = ({ text, onClick, type }) => (
   <Button
     variant="contained"
     type={type}
@@ -12,4 +12,11 @@ const customButton = ({ text, onClick, type }) => (
   </Button>
 );
 
-export default customButton;
+CustomButton.propTypes = {
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  type: PropTypes.string,
+}
+
+export default CustomButton;

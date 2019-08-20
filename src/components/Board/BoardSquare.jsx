@@ -1,24 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const BoardSquare = (props) => {
-  const { key } = props;
-
-  const Square = styled.div`
-  background: white;
-  border: 2px solid palevioletred;
-  width: 50px;
-  height: 50px;
-  `;
+  const { key, propStyle } = props;
 
   return (
-    <Square key={key} />
+    <div key={key} className="square" style={propStyle} />
   );
 };
 
 BoardSquare.propTypes = {
   key: PropTypes.string.isRequired,
+  propStyle: PropTypes.string.isRequired,
 };
 
 export default BoardSquare;

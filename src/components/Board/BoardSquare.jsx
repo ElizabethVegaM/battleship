@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const BoardSquare = (props) => {
-  const { key, propStyle } = props;
-
+  const { boardKey, propStyle, clickFunc } = props;
   return (
-    <div key={key} className="square" style={propStyle} />
+    <div key={boardKey} className="square" style={propStyle} onClick={() => {clickFunc(boardKey)}} />
   );
 };
 
 BoardSquare.propTypes = {
-  key: PropTypes.string.isRequired,
+  boardKey: PropTypes.string.isRequired,
   propStyle: PropTypes.string.isRequired,
+  clickFunc: PropTypes.func.isRequired,
 };
 
 export default BoardSquare;

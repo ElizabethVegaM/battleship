@@ -9,6 +9,11 @@ class Board extends React.Component {
   constructor() {
     super();
     this.drawSquare = this.drawSquare.bind(this);
+    this.squareFunction = this.squareFunction.bind(this);
+  }
+
+  squareFunction(event) {
+    alert(`You clicked${event}`);
   }
 
   drawSquare(squareSize) {
@@ -27,7 +32,7 @@ class Board extends React.Component {
         keyArr.push(squareInfo);
       }
     }
-    return keyArr.map((el) => <BoardSquare key={el.key} style="left: 50px;" />);
+    return keyArr.map((el) => <BoardSquare boardKey={el.key} style="left: 50px;" clickFunc={this.squareFunction} />);
   }
 
   render() {

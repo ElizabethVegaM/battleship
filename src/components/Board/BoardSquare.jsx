@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const BoardSquare = (props) => {
   const { boardKey, propStyle, clickFunc } = props;
   return (
-    <div key={boardKey} className="square" style={propStyle} onClick={() => {clickFunc(boardKey)}} />
+    <div key={boardKey} className="square" style={propStyle} onClick={(event) => {clickFunc(event, boardKey)}} />
   );
 };
 

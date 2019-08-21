@@ -3,17 +3,25 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import BoardSquare from './BoardSquare';
+import ShipPhoto from '../../1597474-200.png';
 
 
 class Board extends React.Component {
   constructor() {
     super();
     this.drawSquare = this.drawSquare.bind(this);
-    this.squareFunction = this.squareFunction.bind(this);
+    this.placeShips = this.placeShips.bind(this);
+    this.ships = [];
   }
 
-  squareFunction(event) {
-    alert(`You clicked${event}`);
+  placeShips(event, boardKey) {
+    this.ships.push(boardKey);
+    console.log(this.ships);
+    if (this.ships.length > 3) {
+      alert('No puedes agregar más barcos');
+    } else {
+      event.target.className = 'shipSquare';
+    }
   }
 
   drawSquare(squareSize) {
@@ -32,7 +40,7 @@ class Board extends React.Component {
         keyArr.push(squareInfo);
       }
     }
-    return keyArr.map((el) => <BoardSquare boardKey={el.key} style="left: 50px;" clickFunc={this.squareFunction} />);
+    return keyArr.map((el) => <BoardSquare boardKey={el.key} clickFunc={this.placeShips} />);
   }
 
   render() {

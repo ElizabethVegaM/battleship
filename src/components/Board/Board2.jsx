@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import BoardSquare from './BoardSquare';
-import ShipPhoto from '../../1597474-200.png';
 
 
 class Board extends React.Component {

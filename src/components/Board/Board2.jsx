@@ -1,24 +1,54 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 /* eslint-disable no-plusplus */
 /* eslint-disable class-methods-use-this */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import BoardSquare from './BoardSquare';
+import firebase from '../Firebase/firestore';
 
 
-class Board extends React.Component {
+class Board2 extends React.Component {
   constructor() {
     super();
     this.drawSquare = this.drawSquare.bind(this);
     this.placeShips = this.placeShips.bind(this);
     this.ships = [];
+    this.db = firebase.firestore();
+    this.firebaseGameId = '';
+  }
+
+  componentDidMount() {
+    this.db.collection('games').where('gameIsOpen', '==', true)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          this.firebaseGameId = doc.id;
+        });
+      })
+      .catch((error) => {
+        console.log('Error getting documents: ', error);
+      });
   }
 
   placeShips(event, boardKey) {
-    this.ships.push(boardKey);
-    console.log(this.ships);
     if (this.ships.length > 3) {
       alert('No puedes agregar más barcos');
+    } else if (this.ships.length === 3) {
+      console.log(this.ships);
+      const firestoreRef = this.db.collection('games').doc(this.firebaseGameId);
+      firestoreRef.update({
+        playerTwoShips: this.ships,
+      })
+        .then(() => {
+          console.log(`Document successfully updated!${this.ships}`);
+        })
+        .catch((error) => {
+          console.error('Error updating document: ', error);
+        });
     } else {
+      this.ships.push(boardKey);
       event.target.className = 'shipSquare';
     }
   }
@@ -49,6 +79,7 @@ class Board extends React.Component {
     return (
       <div>
         <Container>
+          <h3>Enemy Board</h3>
           {this.drawSquare(25)}
         </Container>
       </div>
@@ -56,4 +87,4 @@ class Board extends React.Component {
   }
 }
 
-export default Board;
+export default Board2;

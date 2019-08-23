@@ -1,6 +1,7 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-alert */
 /* eslint-disable class-methods-use-this */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import BoardSquare from './BoardSquare';
 import firebase from '../Firebase/firestore';
@@ -18,10 +19,10 @@ class Board extends React.Component {
     if (this.ships.length > 3) {
       alert('No puedes agregar más barcos');
     } else if (this.ships.length === 3) {
-      console.log(this.ships)
-/*       db.collection('games').add({
+      console.log(this.ships);
+      db.collection('games').add({
         playerOneShips: this.ships,
-        gameStatus: 'open',
+        gameIsOpen: true,
       })
         .then(() => {
           // eslint-disable-next-line no-console
@@ -30,7 +31,7 @@ class Board extends React.Component {
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.error('Error writing document: ', error);
-        }); */
+        });
     } else {
       this.ships.push(boardKey);
       event.target.className = 'shipSquare';
@@ -42,8 +43,8 @@ class Board extends React.Component {
     let squareInfo;
     const cols = 5;
     const rows = 5;
-    for (let i = 0; i < cols; i + 1) {
-      for (let j = 0; j < rows; j + 1) {
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
         const squareKey = `s${i}${j}`;
         squareInfo = {
           key: squareKey,
@@ -63,6 +64,7 @@ class Board extends React.Component {
     return (
       <div>
         <Container>
+          <h3>Your Board</h3>
           {this.drawSquare(25)}
         </Container>
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -10,7 +11,7 @@ const BoardSquare = (props) => {
 
 BoardSquare.propTypes = {
   boardKey: PropTypes.string.isRequired,
-  propStyle: PropTypes.string.isRequired,
+  propStyle: PropTypes.string,
   clickFunc: PropTypes.func.isRequired,
 };
 

@@ -24,9 +24,9 @@ class Board extends React.Component {
         playerOneShips: this.ships,
         gameIsOpen: true,
       })
-        .then(() => {
+        .then((res) => {
           // eslint-disable-next-line no-console
-          console.log(`Document successfully written!${this.ships}`);
+          console.log(`Document successfully written!${res.id}`);
         })
         .catch((error) => {
           // eslint-disable-next-line no-console

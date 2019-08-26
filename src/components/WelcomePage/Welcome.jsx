@@ -1,10 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import CustomButton from '../common/CustomButton';
-import Board1 from '../Board/Board1';
-import Board2 from '../Board/Board2';
+import BoardPlayerOne from '../Board/BoardPlayerOne';
+import BoardPlayerTwo from '../Board/BoardPlayerTwo';
 
 class Welcome extends Component {
   constructor() {
@@ -23,14 +22,14 @@ class Welcome extends Component {
         <h1>BATALLA NAVAL</h1>
         <p>Bienvenido</p>
         <CustomButton onClick={this.newGame} text="INICIAR PARTIDA" />
-        <Container>
+        <Grid container spacing={3}>
           <Grid xs={6}>
-            <Board1 />
+            <BoardPlayerOne />
           </Grid>
           <Grid xs={6}>
-            <Board2 />
+            <BoardPlayerTwo />
           </Grid>
-        </Container>
+        </Grid>
       </div>
     );
   }

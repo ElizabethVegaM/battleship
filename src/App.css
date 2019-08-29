@@ -13,6 +13,10 @@ body {
   padding: 20px;
 }
 
+.hiddenBtn {
+  display: none;
+}
+
 .square {
   background: white;
   border: 2px solid palevioletred;

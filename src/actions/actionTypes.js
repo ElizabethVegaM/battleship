@@ -1,2 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-export const DRAW_BOARD = 'DRAW_BOARD';
+export const GET_DATA = 'GET_DATA';

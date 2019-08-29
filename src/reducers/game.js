@@ -1,20 +1,26 @@
 import {
-  DRAW_BOARD,
+  GET_DATA,
 } from '../actions/actionTypes';
 
 export default (
   // estado anterior(o inicial)
   state = {
-
+    gameData: {},
+    gameId: '',
+    openGame: false,
+    playerOneId: '',
+    playerOneShips: '',
+    playerTwoId: '',
+    playerTwoShips: '',
   },
   action,
 ) => {
   switch (action.type) {
     // ...state lo que hace es copiar el estado anterior y sobreescribe lo que se quiere modificar
-    case DRAW_BOARD:
+    case GET_DATA:
       return {
         ...state,
-        menu: action.payload,
+        gameData: action.payload,
       };
     default: return state;
   }

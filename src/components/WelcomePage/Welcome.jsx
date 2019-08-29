@@ -1,8 +1,7 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
-// import Grid from '@material-ui/core/Grid';
+import InitGame from './InitGame';
 import CustomButton from '../common/CustomButton';
-// import BoardPlayerOne from '../Board/BoardPlayerOne';
-// import BoardPlayerTwo from '../Board/BoardPlayerTwo';
 import firebase from '../Firebase/firestore';
 
 const db = firebase.firestore();
@@ -19,8 +18,6 @@ const useFirestoreData = (ref) => {
           setDocState({
             firestoreData: doc,
           });
-          // doc.data() is never undefined for query doc snapshots
-          // console.log(doc.id, ' => ', doc.data());
         });
       })
       .catch((error) => {
@@ -42,13 +39,6 @@ const Welcome = () => {
   const ref = db.collection('games').where('gameIsOpen', '==', true).limit(1);
   const { firestoreData } = useFirestoreData(ref);
 
-  const handleClick = () => {
-    
-  };
-
-  const joinGameButton = <CustomButton onClick={handleClick} text="UNIRSE A LA PARTIDA ACTUAL" />;
-  const newGameButton = <CustomButton onClick={handleClick} text="CREAR NUEVA PARTIDA" />;
-
   const newGame = (event) => {
     if (firestoreData) {
       const data = firestoreData.data();
@@ -57,32 +47,20 @@ const Welcome = () => {
         openGame: data.gameIsOpen,
         gameId: firestoreData.id,
       });
-    } else {
-      isGame(true);
     }
+    isGame(true);
     event.target.className = 'hiddenBtn';
     return actualGame;
   };
-
-  const condRender = actualGame.openGame ? joinGameButton : newGameButton;
 
   return (
     <div className="container">
       <h1>BATALLA NAVAL</h1>
       <p>Bienvenido</p>
       <CustomButton onClick={newGame} text="COMENZAR" />
-      {game ? condRender : ''}
+      {game ? <InitGame gameStatus={actualGame.openGame} /> : ''}
     </div>
   );
 };
-
-/* <Grid container spacing={3}>
-<Grid xs={6}>
-  <BoardPlayerOne />
-</Grid>
-<Grid xs={6}>
-  <BoardPlayerTwo />
-</Grid>
-</Grid> */
 
 export default Welcome;

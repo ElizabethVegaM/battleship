@@ -13,6 +13,11 @@ body {
   padding: 20px;
 }
 
+.defaultBtn {
+  background-color: red;
+  color: blue;
+}
+
 .hiddenBtn {
   display: none;
 }

@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const YourBoard = () => {
-  const algo = 1;
+  const Container = styled.div`
+    display: inline-block;
+    `;
 
   return (
-    <div>
-      <h1>Tu tablero</h1>
-      <p>Aquí va el tablero</p>
-    </div>
+    <Container>
+      <h3>Your Board</h3>
+    </Container>
   );
 };
 

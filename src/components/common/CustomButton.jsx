@@ -1,5 +1,5 @@
+/* eslint-disable react/button-has-type */
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
 const CustomButton = ({

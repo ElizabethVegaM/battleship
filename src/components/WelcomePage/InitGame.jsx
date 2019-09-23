@@ -1,17 +1,34 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-alert */
+/* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CustomButton from '../common/CustomButton';
 import firebase from '../Firebase/firestore';
-import YourBoard from '../Board/YourBoard';
+import BoardBase from '../Board/BoardBase';
 
-const InitGame = ({ gameStatus }) => {
+const InitGame = ({ gameStatus, id }) => {
   const [gameId, updateGameId] = useState(null);
   const db = firebase.firestore();
 
   const handleClick = (event) => {
     switch (event.target.value) {
       case 'join':
-        alert('Te unirás a una partida');
+        alert(`Te unirás a una partida${id}`);
+        db.collection('games').doc(id).update({
+          playersIngame: 2,
+          gameIsOpen: false,
+        })
+          .then(() => {
+            // eslint-disable-next-line no-console
+            updateGameId(id);
+            console.log('Document successfully updated!');
+          })
+          .catch((error) => {
+            // eslint-disable-next-line no-console
+            console.error('Error writing document: ', error);
+          });
+        event.target.className = 'hiddenBtn';
         break;
       case 'create':
         db.collection('games').add({
@@ -29,7 +46,7 @@ const InitGame = ({ gameStatus }) => {
             // eslint-disable-next-line no-console
             console.error('Error writing document: ', error);
           });
-          event.target.className = 'hiddenBtn';
+        event.target.className = 'hiddenBtn';
         break;
       default:
         alert('khé?!');
@@ -43,13 +60,14 @@ const InitGame = ({ gameStatus }) => {
   return (
     <div>
       {gameStatus ? joinGameButton : newGameButton}
-      {gameId ? YourBoard(gameId) : ''}
+      {gameId ? <BoardBase id={gameId} /> : ''}
     </div>
   );
 };
 
 InitGame.propTypes = {
   gameStatus: PropTypes.bool.isRequired,
+  id: PropTypes.string,
 };
 
 export default InitGame;

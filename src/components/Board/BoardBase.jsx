@@ -1,12 +1,11 @@
 /* eslint-disable no-plusplus */
-/* eslint-disable no-alert */
-/* eslint-disable class-methods-use-this */
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import BoardSquare from './BoardSquare';
 import firebase from '../Firebase/firestore';
 
-class BoardPlayerOne extends React.Component {
+class BoardBase extends React.Component {
   constructor(props) {
     super(props);
     this.drawSquare = this.drawSquare.bind(this);
@@ -72,8 +71,8 @@ class BoardPlayerOne extends React.Component {
   }
 }
 
-BoardPlayerOne.propTypes = {
+BoardBase.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default BoardPlayerOne;
+export default BoardBase;

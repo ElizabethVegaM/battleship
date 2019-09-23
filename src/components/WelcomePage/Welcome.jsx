@@ -58,7 +58,7 @@ const Welcome = () => {
       <h1>BATALLA NAVAL</h1>
       <p>Bienvenido</p>
       <CustomButton onClick={newGame} text="COMENZAR" />
-      {game ? <InitGame gameStatus={actualGame.openGame} /> : ''}
+      {game ? <InitGame gameStatus={actualGame.openGame} id={actualGame.gameId} /> : ''}
     </div>
   );
 };

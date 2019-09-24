@@ -1,24 +1,13 @@
 /* eslint-disable import/prefer-default-export */
-import firebase from '../components/Firebase/firestore';
 import {
-  GET_DATA,
+  GET_ID,
 } from './actionTypes';
 
-export const getData = (dispatch) => () => {
-  const db = firebase.firestore();
-  db.collection('games').where('gameIsOpen', '==', true)
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        dispatch({
-          type: GET_DATA,
-          payload: doc,
-        });
-      });
-    })
-    .catch((error) => {
-      console.log('Error getting documents: ', error);
-    });
+export const getId = (dispatch) => (id) => {
+  dispatch({
+    type: GET_ID,
+    payload: id,
+  });
 };
 
 // se deben de utilizar funciones puras

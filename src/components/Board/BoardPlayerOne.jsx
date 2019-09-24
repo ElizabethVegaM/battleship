@@ -3,6 +3,7 @@
 /* eslint-disable class-methods-use-this */
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import BoardSquare from './BoardSquare';
 import firebase from '../Firebase/firestore';
 
@@ -62,12 +63,10 @@ class BoardPlayerOne extends React.Component {
     display: inline-block;
     `;
     return (
-      <div>
-        <Container>
-          <h3>Board</h3>
-          {this.drawSquare(25)}
-        </Container>
-      </div>
+      <Container>
+        <p>player one</p>
+        {this.drawSquare(25)}
+      </Container>
     );
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/jsx-no-undef */
 import React from 'react';
 import ReactDOM from 'react-dom';

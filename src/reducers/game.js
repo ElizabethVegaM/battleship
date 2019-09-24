@@ -1,23 +1,17 @@
 import {
-  GET_DATA,
+  GET_ID,
 } from '../actions/actionTypes';
 
 export default (
   // estado anterior(o inicial)
   state = {
-    gameData: {},
     gameId: '',
-    openGame: false,
-    playerOneId: '',
-    playerOneShips: '',
-    playerTwoId: '',
-    playerTwoShips: '',
   },
   action,
 ) => {
   switch (action.type) {
     // ...state lo que hace es copiar el estado anterior y sobreescribe lo que se quiere modificar
-    case GET_DATA:
+    case GET_ID:
       return {
         ...state,
         gameData: action.payload,

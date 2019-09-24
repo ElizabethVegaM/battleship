@@ -1,35 +1,18 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 /* eslint-disable no-plusplus */
-/* eslint-disable class-methods-use-this */
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import BoardSquare from './BoardSquare';
 import firebase from '../Firebase/firestore';
 
-
-class Board2 extends React.Component {
-  constructor() {
-    super();
+class BoardPlayerTwo extends React.Component {
+  constructor(props) {
+    super(props);
     this.drawSquare = this.drawSquare.bind(this);
     this.placeShips = this.placeShips.bind(this);
     this.ships = [];
-    this.db = firebase.firestore();
-    this.firebaseGameId = '';
-  }
-
-  componentDidMount() {
-    this.db.collection('games').where('gameIsOpen', '==', true)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          this.firebaseGameId = doc.id;
-        });
-      })
-      .catch((error) => {
-        console.log('Error getting documents: ', error);
-      });
   }
 
   placeShips(event, boardKey) {
@@ -37,8 +20,7 @@ class Board2 extends React.Component {
       alert('No puedes agregar más barcos');
     } else if (this.ships.length === 3) {
       console.log(this.ships);
-      const firestoreRef = this.db.collection('games').doc(this.firebaseGameId);
-      firestoreRef.update({
+      firebase.firestore().collection('games').doc(this.props.id).update({
         playerTwoShips: this.ships,
       })
         .then(() => {
@@ -77,14 +59,16 @@ class Board2 extends React.Component {
     display: inline-block;
     `;
     return (
-      <div>
-        <Container>
-          <h3>Enemy Board</h3>
-          {this.drawSquare(25)}
-        </Container>
-      </div>
+      <Container>
+        <p>player two</p>
+        {this.drawSquare(25)}
+      </Container>
     );
   }
 }
 
-export default Board2;
+BoardPlayerTwo.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+export default BoardPlayerTwo;

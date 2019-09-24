@@ -1,42 +1,17 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import InitGame from './InitGame';
 import CustomButton from '../common/CustomButton';
 import firebase from '../Firebase/firestore';
-
-const db = firebase.firestore();
-
-const useFirestoreData = (ref) => {
-  const [docState, setDocState] = useState({
-    firestoreData: null,
-  });
-
-  useEffect(() => {
-    ref.get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          setDocState({
-            firestoreData: doc,
-          });
-        });
-      })
-      .catch((error) => {
-        console.log('Error getting documents: ', error);
-      });
-  });
-  return docState;
-};
+import { useFirestoreData } from '../customHooks/useFirestoreData';
 
 const Welcome = () => {
   const [game, isGame] = useState(false);
-  useEffect(() => {
-    
-  });
   const [actualGame, updateGame] = useState({
     openGame: false,
     gameId: null,
   });
-  const ref = db.collection('games').where('gameIsOpen', '==', true).limit(1);
+  const ref = firebase.firestore().collection('games').where('gameIsOpen', '==', true).limit(1);
   const { firestoreData } = useFirestoreData(ref);
 
   const newGame = (event) => {

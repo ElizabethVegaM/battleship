@@ -8,7 +8,8 @@ import firebase from '../Firebase/firestore';
 import BoardBase from '../Board/BoardBase';
 
 const InitGame = ({ gameStatus, id }) => {
-  const [gameId, updateGameId] = useState(null);
+  const [gameId, updateId] = useState(null);
+  const [status, setStatus] = useState(gameStatus);
   const db = firebase.firestore();
 
   const handleClick = (event) => {
@@ -19,9 +20,10 @@ const InitGame = ({ gameStatus, id }) => {
           playersIngame: 2,
           gameIsOpen: false,
         })
-          .then(() => {
+          .then((res) => {
             // eslint-disable-next-line no-console
-            updateGameId(id);
+            updateId(id);
+            setStatus(res.gameIsOpen);
             console.log('Document successfully updated!');
           })
           .catch((error) => {
@@ -39,7 +41,8 @@ const InitGame = ({ gameStatus, id }) => {
         })
           .then((res) => {
             // eslint-disable-next-line no-console
-            updateGameId(res.id);
+            updateId(res.id);
+            setStatus(res.gameIsOpen);
             console.log(`Document successfully written!${res.id}`);
           })
           .catch((error) => {
@@ -49,7 +52,6 @@ const InitGame = ({ gameStatus, id }) => {
         event.target.className = 'hiddenBtn';
         break;
       default:
-        alert('khé?!');
         break;
     }
   };
@@ -60,14 +62,14 @@ const InitGame = ({ gameStatus, id }) => {
   return (
     <div>
       {gameStatus ? joinGameButton : newGameButton}
-      {gameId ? <BoardBase id={gameId} /> : ''}
+      {gameId ? <BoardBase gameId={gameId} status={status} /> : ''}
     </div>
   );
 };
 
 InitGame.propTypes = {
-  gameStatus: PropTypes.bool.isRequired,
-  id: PropTypes.string,
+  gameStatus: PropTypes.string.isRequired,
+  id: PropTypes.bool.isRequired,
 };
 
 export default InitGame;

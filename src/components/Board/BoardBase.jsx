@@ -10,9 +10,11 @@ import EnemyBoard from './EnemyBoard';
 // import { useFirestoreData } from '../customHooks/useFirestoreData';
 
 const BoardBase = ({ gameId, status }) => {
-  const [thePlayer, setPlayer] = useState('playerOne');
+  const [notPlayer, setPlayer] = useState('playerOne');
   useEffect(() => {
-    return status ? thePlayer : setPlayer('playerTwo');
+    if (!status) {
+      setPlayer('playerTwo');
+    }
   });
   const [idForGame] = useState(gameId);
   const Container = styled.div`
@@ -29,7 +31,7 @@ const BoardBase = ({ gameId, status }) => {
       <div className="boardContainer">
         <h3>Enemy Board</h3>
       </div>
-      <EnemyBoard id={gameId} player={thePlayer} />
+      <EnemyBoard id={gameId} enemy={notPlayer} />
     </Container>
   );
 };

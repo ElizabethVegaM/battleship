@@ -13,20 +13,67 @@ class EnemyBoard extends React.Component {
     super(props);
     this.drawSquare = this.drawSquare.bind(this);
     this.shootShips = this.shootShips.bind(this);
+    this.game = null;
+    this.ref = firebase.firestore().collection('games').doc(this.props.id);
+  }
+
+  componentDidMount() {
+    this.ref.get()
+      .then((doc) => {
+        this.game = doc.data();
+        console.log(this.game);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log('Error getting documents: ', error);
+      });
   }
 
   shootShips(event, boardKey) {
-/*     firebase.firestore().collection('games').doc(this.props.id).get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-
-        });
-      })
-      .catch((error) => {
-      // eslint-disable-next-line no-console
-        console.log('Error getting documents: ', error);
-      }); */
-    alert(`You shoot ${this.props.player} ${boardKey}`);
+    const opponent = this.props.enemy;
+    let opponentShips;
+    switch (opponent) {
+      case 'playerOne':
+        opponentShips = this.game.playerOneShips;
+        if (opponentShips.includes(boardKey)) {
+          opponentShips.pop(boardKey);
+          this.ref.update({
+            playerOneShips: opponentShips,
+          })
+            .then(() => {
+              alert(`Great! You sinked Player One ${  boardKey  }ships`);
+              console.log('Document successfully updated!');
+            })
+            .catch((error) => {
+              // The document probably doesn't exist.
+              console.error('Error updating document: ', error);
+            });
+        } else {
+          alert('You missed!');
+        }
+        break;
+      case 'playerTwo':
+        opponentShips = this.game.playerTwoShips;
+        if (opponentShips.includes(boardKey)) {
+          opponentShips.pop(boardKey);
+          this.ref.update({
+            playerOneShips: opponentShips,
+          })
+            .then(() => {
+              alert(`Great! You sinked Player Two ${  boardKey  }ships`);
+              console.log('Document successfully updated!');
+            })
+            .catch((error) => {
+              // The document probably doesn't exist.
+              console.error('Error updating document: ', error);
+            });
+        } else {
+          alert('You missed!');
+        }
+        break;
+      default:
+        break;
+    }
   }
 
   drawSquare(squareSize) {
@@ -61,8 +108,8 @@ class EnemyBoard extends React.Component {
 }
 
 EnemyBoard.propTypes = {
-  // id: PropTypes.string.isRequired,
-  player: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  enemy: PropTypes.string.isRequired,
 };
 
 export default EnemyBoard;

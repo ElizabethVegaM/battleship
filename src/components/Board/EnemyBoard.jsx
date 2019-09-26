@@ -41,7 +41,7 @@ class EnemyBoard extends React.Component {
             playerOneShips: opponentShips,
           })
             .then(() => {
-              alert(`Great! You sinked Player One ${  boardKey  }ships`);
+              alert(`Great! You sinked Player One ${boardKey}ships`);
               console.log('Document successfully updated!');
             })
             .catch((error) => {
@@ -60,7 +60,7 @@ class EnemyBoard extends React.Component {
             playerOneShips: opponentShips,
           })
             .then(() => {
-              alert(`Great! You sinked Player Two ${  boardKey  }ships`);
+              alert(`Great! You sinked Player Two ${boardKey}ships`);
               console.log('Document successfully updated!');
             })
             .catch((error) => {

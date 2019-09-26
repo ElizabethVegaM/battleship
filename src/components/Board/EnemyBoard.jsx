@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-alert */
@@ -48,8 +49,10 @@ class EnemyBoard extends React.Component {
               // The document probably doesn't exist.
               console.error('Error updating document: ', error);
             });
+          event.target.className = 'enemyShip';
         } else {
           alert('You missed!');
+          event.target.className = 'notEnemyShip';
         }
         break;
       case 'playerTwo':
@@ -67,8 +70,10 @@ class EnemyBoard extends React.Component {
               // The document probably doesn't exist.
               console.error('Error updating document: ', error);
             });
+          event.target.className = 'enemyShip';
         } else {
           alert('You missed!');
+          event.target.className = 'notEnemyShip';
         }
         break;
       default:

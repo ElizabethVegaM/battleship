@@ -38,6 +38,8 @@ const InitGame = ({ gameStatus, id }) => {
           gameIsOpen: true,
           playerOneShips: null,
           playerTwoShips: null,
+          turn: true,
+          gameOver: false,
         })
           .then((res) => {
             // eslint-disable-next-line no-console

@@ -34,7 +34,7 @@ class EnemyBoard extends React.Component {
     const opponent = this.props.enemy;
     let opponentShips;
     switch (opponent) {
-      case 'playerOne':
+      case 'playerOne' && this.game.turn:
         opponentShips = this.game.playerOneShips;
         if (opponentShips.includes(boardKey)) {
           opponentShips.pop(boardKey);
@@ -55,7 +55,7 @@ class EnemyBoard extends React.Component {
           event.target.className = 'notEnemyShip';
         }
         break;
-      case 'playerTwo':
+      case 'playerTwo' && !this.game.turn:
         opponentShips = this.game.playerTwoShips;
         if (opponentShips.includes(boardKey)) {
           opponentShips.pop(boardKey);
@@ -106,6 +106,7 @@ class EnemyBoard extends React.Component {
     `;
     return (
       <Container>
+        <h3>Enemy Board</h3>
         {this.drawSquare(25)}
       </Container>
     );

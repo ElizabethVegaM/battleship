@@ -22,7 +22,6 @@ class EnemyBoard extends React.Component {
     this.ref.get()
       .then((doc) => {
         this.game = doc.data();
-        console.log(this.game);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console

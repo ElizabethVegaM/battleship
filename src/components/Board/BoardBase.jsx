@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import BoardPlayerOne from './BoardPlayerOne';
 import BoardPlayerTwo from './BoardPlayerTwo';
 import EnemyBoard from './EnemyBoard';
-import firebase from '../Firebase/firestore';
-import { useFirestoreData } from '../customHooks/useFirestoreData';
+import BoardWaitingMessage from './BoardWaitingMessage';
+import { useFirestoreGameStatus } from '../customHooks/useFirestoreGameStatus';
 
 const BoardBase = ({ gameId, status }) => {
   const [notPlayer, setPlayer] = useState('playerOne');
@@ -16,8 +16,14 @@ const BoardBase = ({ gameId, status }) => {
       setPlayer('playerTwo');
     }
   });
-  const ref = firebase.firestore().collection('games').doc(gameId);
-  const { firestoreData } = useFirestoreData(ref);
+
+  const { firestoreRef } = useFirestoreGameStatus(gameId);
+  const [gameStatus, setGameStatus] = useState(true);
+  useEffect(() => {
+    if (firestoreRef) {
+      setGameStatus(firestoreRef.gameIsOpen);
+    }
+  });
   const Container = styled.div`
   width: 270px;
   `;
@@ -26,11 +32,12 @@ const BoardBase = ({ gameId, status }) => {
     <div>
       <Container>
         <div className="boardContainer">
+          <p>{gameId}</p>
           <h3>Your Board</h3>
           {status ? <BoardPlayerTwo id={gameId} /> : <BoardPlayerOne id={gameId} />}
         </div>
         <div className="boardContainer">
-          {firestoreData.gameIsOpen ? <p>Esperando Jugador</p> : <EnemyBoard id={gameId} enemy={notPlayer} />}
+          {gameStatus ? <BoardWaitingMessage /> : <EnemyBoard id={gameId} enemy={notPlayer} />}
         </div>
       </Container>
     </div>

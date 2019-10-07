@@ -4,7 +4,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BoardSquare = ({ boardKey, clickFunc }) => <div key={boardKey} className="square" onClick={(event) => { clickFunc(event, boardKey); }} />;
+const BoardSquare = ({ boardKey, clickFunc }) => {
+  return (
+    <div key={boardKey} className="square" onClick={(event) => { clickFunc(event, boardKey); }}>
+      <p>{boardKey}</p>
+    </div>
+  );
+};
 
 BoardSquare.propTypes = {
   boardKey: PropTypes.string.isRequired,

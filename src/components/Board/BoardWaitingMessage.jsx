@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const BoardWaitingMessage = ({ turn }) => {
   return (
     <p>Esperando jugador</p>
-    
   );
 };
 

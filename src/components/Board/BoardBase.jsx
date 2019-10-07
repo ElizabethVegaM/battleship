@@ -7,7 +7,7 @@ import BoardPlayerOne from './BoardPlayerOne';
 import BoardPlayerTwo from './BoardPlayerTwo';
 import EnemyBoard from './EnemyBoard';
 import BoardWaitingMessage from './BoardWaitingMessage';
-import { useFirestoreGameStatus } from '../customHooks/useFirestoreGameStatus';
+import firebase from '../Firebase/firestore';
 
 const BoardBase = ({ gameId, status }) => {
   const [notPlayer, setPlayer] = useState('playerOne');
@@ -17,12 +17,12 @@ const BoardBase = ({ gameId, status }) => {
     }
   });
 
-  const { firestoreRef } = useFirestoreGameStatus(gameId);
   const [gameStatus, setGameStatus] = useState(true);
   useEffect(() => {
-    if (firestoreRef) {
-      setGameStatus(firestoreRef.gameIsOpen);
-    }
+    firebase.firestore().collection('games').doc(gameId)
+      .onSnapshot((doc) => {
+        setGameStatus(doc.data().gameIsOpen);
+      });
   });
   const Container = styled.div`
   width: 270px;

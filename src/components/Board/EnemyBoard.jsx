@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-plusplus */
@@ -14,8 +15,10 @@ class EnemyBoard extends React.Component {
     super(props);
     this.drawSquare = this.drawSquare.bind(this);
     this.shootShips = this.shootShips.bind(this);
+    this.checkTurn = this.checkTurn.bind(this);
     this.game = null;
     this.ref = firebase.firestore().collection('games').doc(this.props.id);
+    this.turn = true;
   }
 
   componentDidMount() {
@@ -24,56 +27,71 @@ class EnemyBoard extends React.Component {
         this.game = doc.data();
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console
         console.log('Error getting documents: ', error);
       });
+  }
+
+  checkTurn (event, boardKey) {
+    alert('hola');
   }
 
   shootShips(event, boardKey) {
     const opponent = this.props.enemy;
     let opponentShips;
     switch (opponent) {
-      case 'playerOne' && this.game.turn:
-        opponentShips = this.game.playerOneShips;
-        if (opponentShips.includes(boardKey)) {
-          opponentShips.pop(boardKey);
-          this.ref.update({
-            playerOneShips: opponentShips,
-          })
-            .then(() => {
-              alert(`Great! You sinked Player One ${boardKey}ships`);
-              console.log('Document successfully updated!');
+      case 'playerOne':
+        if (this.turn) {
+          opponentShips = this.game.playerOneShips;
+          if (opponentShips.includes(boardKey)) {
+            opponentShips.pop(boardKey);
+            this.ref.update({
+              playerOneShips: opponentShips,
             })
-            .catch((error) => {
-              // The document probably doesn't exist.
-              console.error('Error updating document: ', error);
-            });
-          event.target.className = 'enemyShip';
-        } else {
-          alert('You missed!');
-          event.target.className = 'notEnemyShip';
+              .then(() => {
+                alert(`Great! You sinked Player One ${boardKey} ships`);
+                console.log('Document successfully updated!');
+              })
+              .catch((error) => {
+                // The document probably doesn't exist.
+                console.error('Error updating document: ', error);
+              });
+            event.target.className = 'enemyShip';
+          } else {
+            alert('You missed!');
+            event.target.className = 'notEnemyShip';
+          }
         }
+        this.turn = false;
+        this.ref.update({
+          turn: false,
+        });
         break;
-      case 'playerTwo' && !this.game.turn:
-        opponentShips = this.game.playerTwoShips;
-        if (opponentShips.includes(boardKey)) {
-          opponentShips.pop(boardKey);
-          this.ref.update({
-            playerOneShips: opponentShips,
-          })
-            .then(() => {
-              alert(`Great! You sinked Player Two ${boardKey}ships`);
-              console.log('Document successfully updated!');
+      case 'playerTwo':
+        if (this.turn === false) {
+          opponentShips = this.game.playerTwoShips;
+          if (opponentShips.includes(boardKey)) {
+            opponentShips.pop(boardKey);
+            this.ref.update({
+              playerOneShips: opponentShips,
             })
-            .catch((error) => {
-              // The document probably doesn't exist.
-              console.error('Error updating document: ', error);
-            });
-          event.target.className = 'enemyShip';
-        } else {
-          alert('You missed!');
-          event.target.className = 'notEnemyShip';
+              .then(() => {
+                alert(`Great! You sinked Player Two ${boardKey} ships`);
+                console.log('Document successfully updated!');
+              })
+              .catch((error) => {
+                // The document probably doesn't exist.
+                console.error('Error updating document: ', error);
+              });
+            event.target.className = 'enemyShip';
+          } else {
+            alert('You missed!');
+            event.target.className = 'notEnemyShip';
+          }
         }
+        this.turn = true;
+        this.ref.update({
+          turn: true,
+        });
         break;
       default:
         break;

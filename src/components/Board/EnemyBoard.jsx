@@ -15,7 +15,6 @@ class EnemyBoard extends React.Component {
     super(props);
     this.drawSquare = this.drawSquare.bind(this);
     this.shootShips = this.shootShips.bind(this);
-    this.checkTurn = this.checkTurn.bind(this);
     this.game = null;
     this.ref = firebase.firestore().collection('games').doc(this.props.id);
     this.turn = true;
@@ -25,14 +24,11 @@ class EnemyBoard extends React.Component {
     this.ref.get()
       .then((doc) => {
         this.game = doc.data();
+        this.turn = this.game.turn;
       })
       .catch((error) => {
         console.log('Error getting documents: ', error);
       });
-  }
-
-  checkTurn (event, boardKey) {
-    alert('hola');
   }
 
   shootShips(event, boardKey) {
@@ -40,7 +36,7 @@ class EnemyBoard extends React.Component {
     let opponentShips;
     switch (opponent) {
       case 'playerOne':
-        if (this.turn) {
+        if (this.turn === true) {
           opponentShips = this.game.playerOneShips;
           if (opponentShips.includes(boardKey)) {
             opponentShips.pop(boardKey);
@@ -60,11 +56,19 @@ class EnemyBoard extends React.Component {
             alert('You missed!');
             event.target.className = 'notEnemyShip';
           }
+          this.ref.update({
+            turn: false,
+          })
+            .then((res) => {
+              this.turn = false;
+              console.log('Document successfully updated!');
+              alert('Your turn has ended');
+            })
+            .catch((error) => {
+              // The document probably doesn't exist.
+              console.error('Error updating document: ', error);
+            });
         }
-        this.turn = false;
-        this.ref.update({
-          turn: false,
-        });
         break;
       case 'playerTwo':
         if (this.turn === false) {
@@ -87,11 +91,19 @@ class EnemyBoard extends React.Component {
             alert('You missed!');
             event.target.className = 'notEnemyShip';
           }
+          this.ref.update({
+            turn: true,
+          })
+            .then((res) => {
+              this.turn = true;
+              console.log('Document successfully updated!');
+              alert('Your turn has ended');
+            })
+            .catch((error) => {
+            // The document probably doesn't exist.
+              console.error('Error updating document: ', error);
+            });
         }
-        this.turn = true;
-        this.ref.update({
-          turn: true,
-        });
         break;
       default:
         break;

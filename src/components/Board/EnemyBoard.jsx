@@ -34,13 +34,18 @@ class EnemyBoard extends React.Component {
   shootShips(event, boardKey) {
     const opponent = this.props.enemy;
     let opponentShips;
+    // const firedSquares = [];
     switch (opponent) {
       case 'playerOne':
+        console.log(this.turn);
         if (this.turn === true) {
+          console.log(this.turn);
           opponentShips = this.game.playerOneShips;
-          if (opponentShips.includes(boardKey)) {
+          // firedSquares.push(boardKey);
+          if (opponentShips && opponentShips.includes(boardKey)) {
             opponentShips.pop(boardKey);
             this.ref.update({
+              // pOneFiredSquares: firedSquares,
               playerOneShips: opponentShips,
             })
               .then(() => {
@@ -65,17 +70,20 @@ class EnemyBoard extends React.Component {
               alert('Your turn has ended');
             })
             .catch((error) => {
-              // The document probably doesn't exist.
               console.error('Error updating document: ', error);
             });
         }
         break;
       case 'playerTwo':
-        if (this.turn === false) {
+          console.log(this.turn);
+        if (this.turn) {
+          console.log(this.turn);
           opponentShips = this.game.playerTwoShips;
-          if (opponentShips.includes(boardKey)) {
+          // firedSquares.push(boardKey);
+          if (opponentShips && opponentShips.includes(boardKey)) {
             opponentShips.pop(boardKey);
             this.ref.update({
+              // pTwoFiredSquares: firedSquares,
               playerOneShips: opponentShips,
             })
               .then(() => {

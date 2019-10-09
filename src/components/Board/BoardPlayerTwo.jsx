@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-alert */
 /* eslint-disable no-param-reassign */
@@ -15,6 +17,14 @@ class BoardPlayerTwo extends React.Component {
     this.drawSquare = this.drawSquare.bind(this);
     this.placeShips = this.placeShips.bind(this);
     this.ships = [];
+    this.enemyShoots = [];
+  }
+
+  componentDidMount() {
+    firebase.firestore().collection('games').doc(this.props.id)
+      .onSnapshot((doc) => {
+        this.enemyShoots.push(doc.data().pOneFiredSquares);
+      });
   }
 
   placeShips(event, boardKey) {
@@ -71,6 +81,7 @@ class BoardPlayerTwo extends React.Component {
 
 BoardPlayerTwo.propTypes = {
   id: PropTypes.string.isRequired,
+  enemyFired: PropTypes.array,
 };
 
 export default BoardPlayerTwo;

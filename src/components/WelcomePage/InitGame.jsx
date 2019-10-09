@@ -39,6 +39,8 @@ const InitGame = ({ gameStatus, id }) => {
           playerOneShips: null,
           playerTwoShips: null,
           turn: true,
+          pOneFiredSquares: null,
+          pTwoFiredSquares: null,
           gameOver: false,
         })
           .then((res) => {

@@ -1,3 +1,7 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-alert */
 /* eslint-disable class-methods-use-this */
@@ -13,6 +17,14 @@ class BoardPlayerOne extends React.Component {
     this.drawSquare = this.drawSquare.bind(this);
     this.placeShips = this.placeShips.bind(this);
     this.ships = [];
+    this.enemyShoots = [];
+  }
+
+  componentDidMount() {
+    firebase.firestore().collection('games').doc(this.props.id)
+      .onSnapshot((doc) => {
+        this.enemyShoots.push(doc.data().pOneFiredSquares);
+      });
   }
 
   placeShips(event, boardKey) {
@@ -20,8 +32,8 @@ class BoardPlayerOne extends React.Component {
     if (this.ships.length > 3) {
       alert('No puedes agregar más barcos');
     } else if (this.ships.length === 3) {
+      // eslint-disable-next-line no-console
       console.log(this.ships);
-      // eslint-disable-next-line react/destructuring-assignment
       db.collection('games').doc(this.props.id).update({
         playerOneShips: this.ships,
       })
@@ -73,6 +85,7 @@ class BoardPlayerOne extends React.Component {
 
 BoardPlayerOne.propTypes = {
   id: PropTypes.string.isRequired,
+  enemyFired: PropTypes.array,
 };
 
 export default BoardPlayerOne;

@@ -1,79 +1,21 @@
 # Battleship
 
-## Índice
+Este proyecto es una versión web del juego Batalla Naval, o _Battleship_, que consiste en que en un tablero cada jugador coloca un conjunto de barcos, ocultando su posición del contrincante. Luego, por turnos, van anunciando una posición del tablero y el enemigo informa si le han dado a uno de sus barcos o no. El juego termina cuando un jugador ha conseguido hundir todos los barcos del otro. Se puede jugar de a 2 personas.
 
-* [1. Preámbulo](#1-preámbulo)
-* [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
-* [4. Consideraciones generales](#4-consideraciones-generales)
-* [5. Pistas, tips y lecturas complementarias]
 
-## 1. Preámbulo
+Este proyecto fue creado como implementación modelo para el bootcamp de [Laboratoria](https://github.com/Laboratoria/bootcamp/tree/main/projects/05-battleship)
 
-Los videojuegos son una verdadera prueba cuando se trata de tecnología. Uno de los factores de éxito para el equipo de android, por ejemplo, fue que podían tener un juego corriendo en los primeros teléfonos. La idea era que si un juego ya estaba corriendo en la plataforma, un programa más simple con pantallas mucho más fáciles de trabajar con botones y texto debería funcionar aun mejor.
 
-Entonces la idea de este proyecto es llevar los frameworks de aplicaciones web al límite de lo que pueden ofrecer, tratar de explorar sus funcionalidades más avanzadas y lograr un producto que se luzca con tu talento y creatividad dominando el framework que elijas.
+## Tecnologías usadas 🛠️
 
-## 2. Resumen del proyecto
+* React 16.9.0
+* Prop-types 15.7.2
+* Firebase 6.4.0
+* Styled Components 4.3.2
+* Material UI 4.3.2
+* Eslint 6.1.0 (_para buenas prácticas y estilos de código_)
 
-Battleship es un juego clásico, con múltiples versiones en juegos de mesa y en linea (si no lo conoces, puedes verlo en este link : [battle-ship](https://es.wikipedia.org/wiki/Batalla_naval_(juego))). En este proyecto deberás crear una nueva versión, agregándole algún giro para actualizarlo y hacerlo más atractivo para las nuevas generaciones. También, no estás atada a hacer este juego sobre barcos, puedes hacerlo con el tema que más te guste, siempre y cuando el modo de juego sea parecido.
 
-Por otra parte el juego debe ser para dos jugadores, para lograrlo debes pensar en cómo puedes estructurar datos, estado de la aplicación y cómo guardarlos en alguna base de datos como __Firebase__ o __MongoDB Stitch__.
+## Despliegue 📦
 
-## 3. Objetivos de aprendizaje
-
-1. El objetivo principal de hacer este juego es que puedas diseñar un esquema de datos y lo apliques a una base de datos conocida, como _firebase_ o _mongodb_. Muchas veces el como modeles la información es más importante a como estructures tu código, ya que los problemas que puedan aparecer en el futuro tendrán su origen acá.
-
-2. No menos importante, tendrás que diseñar y mantener el estado dentro de la aplicación, esto es la información que usas y guardas temporalmente por cada ejecución. Para esto unas herramientas que están en _react_ son __Redux__ o también __Context API__. Por el lado de _angular_ tendrás a los __observables__ y su uso conjunto con los __servicios__.
-
-3. Y finalmente tendrás que diseñar una interfaz llamativa, usando y abusando de todo lo que sabes de CSS y animaciones para que tengas un juego vistoso y que guste a la gente. Tienes que invitar a jugar tu juego.
-
-Tópicos: _react_, _angular_, _redux_, _firebase_, _mongodb stitch_.
-
-## 4. Consideraciones generales
-
-Este proyecto se debe resolver en equipos de 3 personas.
-
-La planificación es clave, por lo que debes coordinarte con tu equipo e identificar las historias de usuario, priorizarlas y trabajarlas sprint a sprint cuidando de que hayan test para el código, se haya hecho test con usuarios sobre la usabilidad y cumpliendo con las ceremonias de SCRUM que has aprendido a lo largo del bootcamp.
-
-También para este proyecto, usa cualquier framework (_react_, _angular_, etc...) cuidando de que se vea bien en las pantallas de celular o computador, que los jugadores puedan elegir la plataforma libremente sin prejuicio de la jugabilidad. Para esto considera un tamaño variable de pantalla y que los elementos del juego se redimensionen dependiendo de ella.
-
-Para la base de datos, trata de modelar bien cómo guardarás los datos y piensa bien el cómo soportar varios usuarios a la vez en diferentes salas de juego. Recuerda que "battleship" se juega de a dos. Usa tu creatividad para asignar contrincantes a cada jugador.
-
-### Definición de terminado para cada historia de usuario
-
-* Debes haber recibido _code review_ de al menos una compañera.
-* Haces _test_ unitarios y, además, has testeado tu producto manualmente.
-* Hiciste _tests_ de usabilidad e incorporaste el _feedback_ del usuario.
-* Desplegaste tu aplicación y has etiquetado tu versión (git tag).
-* Los datos se deben mantener íntegros, incluso después de que un pedido ha
-  terminado. Todo esto para poder tener estadísticas en el futuro.
-
-## 5. Pistas, tips y lecturas complementarias
-
-1. Modela los datos, es un paso muy importante, considera que el juego es de dos personas, pero más de una pareja puede estar jugando a la vez (modelo de salón de juego).
-
-2. Haz un _fork_ de este repositorio (en GitHub). Luego que tus compañeras de proyecto hagan a su vez _fork_ de __tu__ repositorio. Recuerda, como en proyectos anteriores, que una de ustedes debe ser la integradora o _maestra_ del repositorio principal.
-
-3. Para facilidad piensa en una cuadrícula y que cada _barco_ solo ocupa una de ellas. Si quieres escalar en dificultad para este proyecto, puedes intentar con barcos de formas y tamaños diferentes.
-
-4. Ten el concepto de turno y guarda de quién es el turno cada vez en la base de datos. También define la condición de término en una forma que tu código lo pueda detectar, como por ejemplo : todos los barcos se han hundido.
-
-5. Llevar el estado del juego es primordial, define bien las acciones, reducidores y datos que estarán en cada juego, turno y movida de los jugadores. Puedes hacer un diagrama de estados para esto : [diagrama-estados](https://www.lucidchart.com/pages/es/diagrama-de-maquina-de-estados)
-
-### Otros recursos
-
-#### Bibliotecas y componentes
-
-* [redux](https://es.redux.js.org/)
-* [animaciones-react](https://medium.com/@dmitrynozhenko/5-ways-to-animate-a-reactjs-app-in-2019-56eb9af6e3bf)
-* [animaciones-angular](https://blog.angularindepth.com/total-guide-to-dynamic-angular-animations-that-can-be-toggled-at-runtime-be5bb6778a0a)
-* [servicios-angular](https://angular.io/tutorial/toh-pt4)
-* [contexto-react](https://es.reactjs.org/docs/context.html)
-* [hooks-react](https://es.reactjs.org/docs/hooks-intro.html)
-
-#### Conceptos
-
-* [observables](https://angular.io/guide/observables)
-* [visualizador-observables](https://rxviz.com/)
-* [visualizador-observables-2](https://rxmarbles.com/)
+Puedes ver el resultado de este proyecto [acá](https://battleship-prototype.web.app/).
